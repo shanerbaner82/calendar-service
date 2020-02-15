@@ -21,10 +21,14 @@ Route::get('/', function () {
 Route::get('/busy', function () {
     $startDate = Carbon::now()->startOfDay();
     $endDate = Carbon::now()->endOfDay();
-    $busyTimes = CalendarService::getCalendarBusyTimes($startDate, $endDate);
+    $busyTimes = collect(CalendarService::getCalendarBusyTimes($startDate, $endDate));
     return $busyTimes;
 });
 
 Route::get('/free', function () {
-   return [ 'error' => 'Unable to process request'];
+    $startDate = Carbon::now()->startOfDay();
+    $endDate = Carbon::now()->endOfDay();
+    $freeTimes = CalendarService::freeTimes($startDate, $endDate);
+
+    return $freeTimes;
 });
